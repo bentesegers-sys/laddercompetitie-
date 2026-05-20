@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Sparkx Laddercompetitie</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 600px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #007BFF; }
+        .melding { background: #e2f0d9; padding: 10px; border-radius: 4px; margin-bottom: 15px; color: #385723; }
+        ol { font-size: 1.2em; font-weight: bold; }
+        ol li { margin-bottom: 5px; font-weight: normal; }
+        form { margin-bottom: 15px; }
+        input, button { padding: 8px; font-size: 1em; }
+        button { background-color: #007BFF; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        button:hover { background-color: #0056b3; }
+        .btn-gevaar { background-color: #dc3545; }
+        .btn-gevaar:hover { background-color: #bd2130; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Welkom bij de Sparkx laddercompetitie!</h1>
+
+    <!-- Toon statusmeldingen (bijv. "Speler toegevoegd") -->
+    {% if melding %}
+        <div class="melding">{{ melding }}</div>
+    {% endif %}
+
+    <h2>Huidige Ladder</h2>
+    {% if spelers %}
+        <ol>
+            {% for speler in spelers %}
+                <li>{{ speler }}</li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>Er zijn nog geen spelers toegevoegd.</p>
+    {% endif %}
+
+    <hr>
+
+    <!-- Actie 1: Speler toevoegen -->
+    <h3>Speler toevoegen</h3>
+    <form method="POST">
+        <input type="hidden" name="actie" value="toevoegen">
+        <input type="text" name="naam" placeholder="Naam speler" required>
+        <button type="submit">Toevoegen</button>
+    </form>
+
+    <!-- Actie 2: Namen wisselen -->
+    <h3>Posities wisselen</h3>
+    <form method="POST">
+        <input type="hidden" name="actie" value="wisselen">
+        <input type="text" name="naam1" placeholder="Eerste naam" required>
+        <input type="text" name="naam2" placeholder="Tweede naam" required>
+        <button type="submit">Wissel spelers</button>
+    </form>
+
+    <!-- Extra: Ladder resetten -->
+    <form method="POST" style="margin-top: 30px;">
+        <input type="hidden" name="actie" value="wissen">
+        <button type="submit" class="btn-gevaar">Volledige ladder wissen</button>
+    </form>
+</div>
+
+</body>
+</html>
